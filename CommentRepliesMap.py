@@ -18,3 +18,9 @@ class CommentRepliesMap:
         if index < 0 or index >= len(self.comments):
             raise IndexError("Index out of range")
         print(f"{self.comments[index]}: {self.commentReplyMap[index]}")
+
+    def getMapAsDataFrame(self) -> pd.DataFrame:
+        d = dict()
+        for i in range(len(self.comments)):
+            d[self.comments[i]] = [self.commentReplyMap[i]]
+        return pd.DataFrame.from_dict(d, orient='index')
