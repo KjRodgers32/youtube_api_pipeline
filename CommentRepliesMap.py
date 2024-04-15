@@ -1,11 +1,13 @@
 import pandas as pd
 
+from typing import List
+
 class CommentRepliesMap:
     def __init__(self):
         self.comments = []
         self.commentReplyMap = {}
     
-    def append(self, comment: str, replies: list) -> None:
+    def append(self, comment: str, replies: List[str]) -> None:
         arr_index = len(self.comments)
         self.commentReplyMap[arr_index] = replies
         self.comments.append(comment)

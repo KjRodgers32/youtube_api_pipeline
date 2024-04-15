@@ -1,12 +1,20 @@
 import pandas as pd
 
-class CommentSection:
-    def __init__(self, video_url: str, api_key: str) -> None:
-        self.page = video_url
-        self.api_key = api_key
-        self.comments = []
-        self.replies = []
+from googleapiclient.discovery import build
 
-    def pull_comments_from_channel(self) -> pd.Dataframe:
+class CommentSection:
+    def __init__(self, apiKey: str) -> None:
+        self.api_key = apiKey
+
+    def pull_comments_from_channel(self, videoId) -> object:
         """ This method will pull down the comments from a specific 
         youtube channel's video using the Youtube API """
+
+        youtube = build('youtube','v3', developerKey=self.apiKey)
+
+        responses = youtube.commentThreads().list(
+            part = 'snippet,replies',
+            videoId = videoId
+        ).execute()
+
+        return responses
